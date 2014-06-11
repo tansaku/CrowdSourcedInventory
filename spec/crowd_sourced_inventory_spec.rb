@@ -18,6 +18,28 @@ describe CrowdSourcedInventory do
     expect(csi.contents).to eq ['apple']
   end
 
+  it "has no votes when first added" do
+    expect(csi.vote_count('apple')).to eq 0
+  end
+
+  it 'can receive votes' do
+    csi.vote('apple')
+    expect(csi.vote_count('apple')).to eq 1
+  end
+
+  it 'can receive more than one vote' do
+    csi.vote('apple')
+    csi.vote('apple')
+    expect(csi.vote_count('apple')).to eq 2 
+  end
+
+  it "receive votes on more than one foodstuff" do
+    csi.vote('apple')
+    csi.vote('pear')
+    expect(csi.vote_count('apple')).to eq 1
+    expect(csi.vote_count('pear')).to eq 1
+  end
+
 
 
 
